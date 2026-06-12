@@ -1,7 +1,5 @@
 # run export SONAR_TOKEN="sqp_xxxxx" for a new shell, with the token got from sonarqube > my account > security
 
-# token : squ_185d50205850559a822b9c0e3ad792ab9d8f8323 (11 june, expire:30 days)
-
 #!/bin/bash
 
 PROJECT_PATH="$1"
