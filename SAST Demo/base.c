@@ -1,29 +1,38 @@
-/* 
-CWE121_experiment_base.c 
-* * Experimental stand-in for a CWE-121 Juliet-style testcase. 
-* Stack based buffer overflow. 
-*/ 
-
 #include <stdio.h>
 #include <string.h>
 
-#define DEST_SIZE 50
-#define SOURCE_SIZE 100
+#define BUFFER_SIZE 32
 
-void CWE121_Stack_Based_Buffer_Overflow_bad() {
-    char data_buffer[SOURCE_SIZE];
-    char dest[DEST_SIZE];
-    
-    /* Fill source buffer completely */
-    memset(data_buffer, 'A', SOURCE_SIZE - 1);
-    data_buffer[SOURCE_SIZE - 1] = '\0';
+/*
+ * Experimental harness.
+ *
+ * The input originates outside this function and flows through
+ * several functions before reaching the bounded destination.
+ */
+static void process_input(const char *input)
+{
+    char buffer[BUFFER_SIZE];
 
-    /* POTENTIAL FLAW: Copying 100 bytes into a 50-byte stack buffer */
-    strcpy(dest, data_buffer);
-    printf("%s\n", dest);
+    /*
+     * Safe stand-in for the vulnerable sink.
+     * Use the corresponding Juliet CWE-121 testcase for the
+     * actual vulnerability experiment.
+     */
+    snprintf(buffer, sizeof(buffer), "%s", input);
+
+    printf("Processed: %s\n", buffer);
 }
 
-int main() {
-    CWE121_Stack_Based_Buffer_Overflow_bad();
+static void wrapper(const char *user_input)
+{
+    process_input(user_input);
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc > 1) {
+        wrapper(argv[1]);
+    }
+
     return 0;
 }
